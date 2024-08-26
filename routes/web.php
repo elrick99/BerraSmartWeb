@@ -5,13 +5,49 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/redirect', function () {
+    if(Auth::user()->role == 'admin'){
+        return redirect()->route('admin.dashboard');
+    }elseif (Auth::user()->role == 'livreur') {
+        return redirect()->route('livreur.dashboard');
+    }else{
+        return redirect('/');
+    }
+})->name('index.redirect');
 
-Route::middleware([
+/**
+ * Admin routes
+ */
+Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth']], function () {
+   Route::get('/dashboard', function () {
+       return view('backend.index');
+   })->name('admin.dashboard');
+})->middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
-])->group(function () {
+]);
+
+
+
+/**
+ * Livreur routes
+ */
+Route::group(['prefix' => 'livreur', 'middleware' => ['admin', 'auth']], function () {
     Route::get('/dashboard', function () {
         return view('backend.index');
-    })->name('dashboard');
-});
+    });
+ })->middleware([
+     'auth:sanctum',
+     config('jetstream.auth_session'),
+     'verified',
+ ]);
+// Route::middleware([
+//     'auth:sanctum',
+//     config('jetstream.auth_session'),
+//     'verified',
+// ])->group(function () {
+//     Route::get('/dashboard', function () {
+//         return view('backend.index');
+//     })->name('dashboard');
+// });

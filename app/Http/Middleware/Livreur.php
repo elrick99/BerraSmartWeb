@@ -2,12 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use Auth;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class Admin
+class Livreur
 {
     /**
      * Handle an incoming request.
@@ -16,10 +15,6 @@ class Admin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        
-        if (!Auth::check() || !Auth::user()->role == 'admin') {
-            return redirect()->route('login');
-        }
         return $next($request);
     }
 }

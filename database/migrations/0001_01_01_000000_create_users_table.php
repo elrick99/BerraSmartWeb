@@ -15,9 +15,16 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('password')->nullable();
+            $table->string('mobile', 14);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->boolean('email_confirmed')->default(false);
+            $table->string('indicator_tel')->nullable();
+            $table->float('rating')->default(0);
+            $table->unsignedInteger('country')->nullable();
             $table->enum('role', ['admin', 'user', 'livreur'])->default('user');
+            $table->enum('login_by', ['android','ios'])->nullable();
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();

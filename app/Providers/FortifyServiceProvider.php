@@ -9,6 +9,7 @@ use App\Actions\Fortify\UpdateUserProfileInformation;
 use App\Models\User;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Session;
@@ -38,7 +39,8 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::authenticateUsing(function (Request $request) {
             $user = User::where('email', $request->email)->where('role', 'admin')->first();
             if ($user && Hash::check($request->password, $user->password)) {
-                // dd($user);
+                // Auth::attempt(['email' => $request->email, 'password' => $request->password]);
+                // return redirect()->route('admin.dashboard');
                 return $user;
             }else {
                 $request->session()->put('login', $request->email);
@@ -47,7 +49,7 @@ class FortifyServiceProvider extends ServiceProvider
             }
         });
         RateLimiter::for('login', function (Request $request) {
-            
+           
             $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())).'|'.$request->ip());
             
             
