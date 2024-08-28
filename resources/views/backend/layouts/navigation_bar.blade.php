@@ -28,7 +28,7 @@
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-category-alt"></i>
-                <div data-i18n="Categorie">Categorie</div>
+                <div data-i18n="Categorie">Users</div>
             </a>
 
             <ul class="menu-sub">
@@ -39,7 +39,13 @@
 <!--                </li>-->
                 <li class="menu-item">
                     <a href="" class="menu-link">
-                        <div data-i18n="Liste">Liste Categorie</div>
+                        <div data-i18n="Liste">Liste Livreur</div>
+                    </a>
+                </li>
+
+                <li class="menu-item">
+                    <a href="" class="menu-link">
+                        <div data-i18n="Liste">Liste Client</div>
                     </a>
                 </li>
 
