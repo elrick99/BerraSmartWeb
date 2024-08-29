@@ -56,20 +56,37 @@
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-box"></i>
-                <div data-i18n="Categorie">Produit</div>
+                <div data-i18n="Categorie">Configurations</div>
             </a>
 
             <ul class="menu-sub">
-{{--                <li class="menu-item">--}}
-{{--                    <a href="{{ route('produits.create') }}" class="menu-link">--}}
-{{--                        <div data-i18n="Enregistrement">Enregistrement</div>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
                 <li class="menu-item">
                     <a href="" class="menu-link">
-                        <div data-i18n="Liste">Liste produit</div>
+                        <div data-i18n="Liste">Ville</div>
                     </a>
                 </li>
+                <li class="menu-item">
+                    <a href="" class="menu-link">
+                        <div data-i18n="Liste">Communes</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="" class="menu-link">
+                        <div data-i18n="Liste">Type Document</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="" class="menu-link">
+                        <div data-i18n="Liste">Marque Vehicule</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="" class="menu-link">
+                        <div data-i18n="Liste">Type Vehicule</div>
+                    </a>
+                </li>
+
+
 
             </ul>
         </li>
