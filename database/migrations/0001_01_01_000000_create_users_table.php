@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('indicator_tel')->nullable();
             $table->float('rating')->default(0);
             $table->unsignedInteger('country')->nullable();
-            $table->enum('role', ['admin', 'user', 'livreur'])->default('user');
+            $table->enum('role', ['admin', 'user', 'driver'])->default('user');
             $table->enum('login_by', ['android','ios'])->nullable();
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();

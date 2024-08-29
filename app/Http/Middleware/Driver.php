@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class Livreur
+class Driver
 {
     /**
      * Handle an incoming request.
@@ -15,7 +15,7 @@ class Livreur
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::check() || !Auth::user()->role == 'livreur') {
+        if (!Auth::check() || !Auth::user()->role == 'driver') {
             return redirect()->route('login');
         }
         return $next($request);

@@ -8,8 +8,8 @@ Route::get('/', function () {
 Route::get('/redirect', function () {
     if(Auth::user()->role == 'admin'){
         return redirect()->route('admin.dashboard');
-    }elseif (Auth::user()->role == 'livreur') {
-        return redirect()->route('livreur.dashboard');
+    }elseif (Auth::user()->role == 'driver') {
+        return redirect()->route('driver.dashboard');
     }else{
         return redirect('/');
     }
@@ -31,9 +31,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth']], function 
 
 
 /**
- * Livreur routes
+ * Driver routes
  */
-Route::group(['prefix' => 'livreur', 'middleware' => ['admin', 'auth']], function () {
+Route::group(['prefix' => 'driver', 'middleware' => ['admin', 'auth']], function () {
     Route::get('/dashboard', function () {
         return view('backend.index');
     });

@@ -3,7 +3,7 @@
         <a href="/dashboard" class="app-brand-link">
             <span class="app-brand-logo demo">
                                 <span class="app-brand-text demo menu-text fw-bolder ms-2">Sneat</span>
-                            
+
             </span>
 
         </a>
@@ -39,7 +39,7 @@
 <!--                </li>-->
                 <li class="menu-item">
                     <a href="" class="menu-link">
-                        <div data-i18n="Liste">Liste Livreur</div>
+                        <div data-i18n="Liste">Liste Driver</div>
                     </a>
                 </li>
 
@@ -228,7 +228,7 @@
             </a>
             <ul class="menu-sub">
 
-               
+
 
                  <li class="menu-item">
                     <a href="" class="menu-link">
