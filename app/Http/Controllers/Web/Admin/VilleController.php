@@ -65,14 +65,28 @@ class VilleController extends Controller
      */
     public function update(UpdateVilleRequest $request, Ville $ville)
     {
-        //
+        $data = $request->all();
+        $status = $ville->update($data);
+        if($status){
+            Session::flash('message', 'Ville modifier avec succes');
+            Session::flash('alert-class', 'alert-success');
+            return redirect()->route('ville.index')->with('success', 'Ville modifier avec succes');
+        }else{
+            return back()->with('error', 'Ville non modifier');
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Ville $ville)
+    public function destroy($id): \Illuminate\Http\JsonResponse
     {
-        //
+        $ville = Ville::find($id);
+        $ville->delete();
+        return response()->json([
+                'statusCode' => 200,
+                'message' => 'Ville supprimer avec succes'
+            ]);
+
     }
 }

@@ -14,4 +14,12 @@ class Ville extends Model
         'description',
         'active',
     ];
+
+    /**
+     * Commune With Ville
+     */
+    public function communes(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Commune::class);
+    }
 }

@@ -26,6 +26,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth']], function 
    //Ville
    Route::resource('ville', App\Http\Controllers\Web\Admin\VilleController::class);
 
+   //Commune
+    Route::resource('commune', App\Http\Controllers\Web\Admin\CommuneController::class);
+
 
 })->middleware([
     'auth:sanctum',
