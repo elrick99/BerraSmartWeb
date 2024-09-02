@@ -22,6 +22,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth']], function 
    Route::get('/dashboard', function () {
        return view('backend.index');
    })->name('admin.dashboard');
+
+   //Ville
+   Route::resource('ville', App\Http\Controllers\Web\Admin\VilleController::class);
+
+
 })->middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

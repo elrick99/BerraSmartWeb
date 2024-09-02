@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreVilleRequest;
 use App\Http\Requests\UpdateVilleRequest;
 use App\Models\Ville;
+use Illuminate\Support\Facades\Session;
 
 class VilleController extends Controller
 {
@@ -14,7 +15,8 @@ class VilleController extends Controller
      */
     public function index()
     {
-        //
+        $results = Ville::paginate(10);
+        return view('backend.ville.index', compact('results'));
     }
 
     /**
@@ -22,7 +24,7 @@ class VilleController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.ville.create');
     }
 
     /**
@@ -30,7 +32,16 @@ class VilleController extends Controller
      */
     public function store(StoreVilleRequest $request)
     {
-        //
+       $data = $request->all();
+       $status = Ville::create($data);
+       if($status){
+           Session::flash('message', 'Ville creer avec succes');
+           Session::flash('alert-class', 'alert-success');
+           return redirect()->route('ville.index')->with('success', 'Ville creer avec succes');
+       }else{
+           return back()->with('error', 'Ville non creer');
+       }
+
     }
 
     /**
@@ -46,7 +57,7 @@ class VilleController extends Controller
      */
     public function edit(Ville $ville)
     {
-        //
+        return view('backend.ville.edit', compact('ville'));
     }
 
     /**

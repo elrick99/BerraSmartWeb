@@ -61,7 +61,7 @@
 
             <ul class="menu-sub">
                 <li class="menu-item">
-                    <a href="" class="menu-link">
+                    <a href="{{route('ville.index')}}" class="menu-link">
                         <div data-i18n="Liste">Ville</div>
                     </a>
                 </li>
