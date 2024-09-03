@@ -66,13 +66,13 @@
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="" class="menu-link">
+                    <a href="{{route('commune.index')}}" class="menu-link">
                         <div data-i18n="Liste">Communes</div>
                     </a>
                 </li>
                 <li class="menu-item">
                     <a href="" class="menu-link">
-                        <div data-i18n="Liste">Type Document</div>
+                        <div data-i18n="Liste">Type Document Driver</div>
                     </a>
                 </li>
                 <li class="menu-item">

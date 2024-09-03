@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web\Admin;
 
-use App\Models\TypeDocumentDriver;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTypeDocumentDriverRequest;
 use App\Http\Requests\UpdateTypeDocumentDriverRequest;
+use App\Models\TypeDocumentDriver;
 
 class TypeDocumentDriverController extends Controller
 {
@@ -13,7 +14,8 @@ class TypeDocumentDriverController extends Controller
      */
     public function index()
     {
-        //
+        $results = TypeDocumentDriver::paginate(10);
+        return view('backend.type_document_driver.index', compact('results'));
     }
 
     /**
@@ -21,7 +23,7 @@ class TypeDocumentDriverController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.type_document_driver.create');
     }
 
     /**

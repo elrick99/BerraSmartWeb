@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('description');
             $table->unsignedBigInteger('ville_id');
             $table->foreign('ville_id')->references('id')->on('villes');
-            $table->boolean('active')->default(1);
+            $table->enum('status', ['1', '0'])->default(1);
             $table->timestamps();
         });
     }

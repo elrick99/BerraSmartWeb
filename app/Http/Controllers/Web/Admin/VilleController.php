@@ -87,7 +87,6 @@ class VilleController extends Controller
     public function destroy($id): \Illuminate\Http\JsonResponse
     {
         $ville = Ville::find($id);
-        dd($ville);
         $ville->delete();
         return response()->json([
                 'statusCode' => 200,

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCommuneRequest;
 use App\Http\Requests\UpdateCommuneRequest;
 use App\Models\Commune;
+use App\Models\Ville;
+use Illuminate\Support\Facades\Session;
 
 class CommuneController extends Controller
 {
@@ -14,7 +16,8 @@ class CommuneController extends Controller
      */
     public function index()
     {
-        //
+        $results = Commune::paginate(10);
+        return view('backend.commune.index', compact('results'));
     }
 
     /**
@@ -22,7 +25,8 @@ class CommuneController extends Controller
      */
     public function create()
     {
-        //
+        $villes = Ville::all();
+        return view('backend.commune.create', compact('villes'));
     }
 
     /**
@@ -30,7 +34,16 @@ class CommuneController extends Controller
      */
     public function store(StoreCommuneRequest $request)
     {
-        //
+        $data = $request->all();
+        $data['libelle'] = strtoupper($data['libelle']);
+        $status = Commune::create($data);
+        if($status){
+            Session::flash('message', 'Commune creer avec succes');
+            Session::flash('alert-class', 'alert-success');
+            return redirect()->route('commune.index')->with('success', 'Commune creer avec succes');
+        }else{
+            return back()->with('error', 'Commune non creer');
+        }
     }
 
     /**
@@ -46,7 +59,8 @@ class CommuneController extends Controller
      */
     public function edit(Commune $commune)
     {
-        //
+        $villes = Ville::all();
+        return view('backend.commune.edit', compact('commune', 'villes'));
     }
 
     /**
@@ -54,14 +68,37 @@ class CommuneController extends Controller
      */
     public function update(UpdateCommuneRequest $request, Commune $commune)
     {
-        //
+        $commune->libelle = strtoupper($request->libelle);
+        $commune->description = $request->description;
+        $commune->ville_id = $request->ville_id;
+        $commune->status = $request->status;
+        $status = $commune->save();
+        if($status){
+            Session::flash('message', 'Commune modifier avec succes');
+            Session::flash('alert-class', 'alert-success');
+            return redirect()->route('commune.index')->with('success', 'Commune modifier avec succes');
+        }else{
+            return back()->with('error', 'Commune non modifier');
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Commune $commune)
+    public function destroy($id)
     {
-        //
+        $commune= Commune::find($id);
+        $status = $commune->delete();
+        if($status){
+            return response()->json([
+                'statusCode' => 200,
+                'message' => 'Commune supprimer avec succes'
+            ]);
+        }else{
+            return response()->json([
+                'statusCode' => 500,
+                'message' => 'Commune non supprimer'
+            ]);
+        }
     }
 }

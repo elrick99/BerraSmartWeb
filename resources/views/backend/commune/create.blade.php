@@ -37,8 +37,8 @@
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <label for="status" class="form-label">Ville</label>
-                                <select id="status" class="form-select @error('ville_id') is-invalid @enderror" name="status">
+                                <label for="ville_id" class="form-label">Ville</label>
+                                <select id="ville_id" class="form-select @error('ville_id') is-invalid @enderror" name="ville_id">
                                     @foreach($villes as $ville)
                                         <option value="{{$ville->id}}">{{$ville->libelle}}</option>
                                     @endforeach
@@ -53,8 +53,8 @@
                                 <label for="status" class="form-label">Status</label>
                                 <select id="status" class="form-select @error('status') is-invalid @enderror"
                                         name="status">
-                                    <option value="active">Active</option>
-                                    <option value="inactive">Inactive</option>
+                                    <option value="1">Active</option>
+                                    <option value="0">Inactive</option>
                                 </select>
                                 @error('status')
                                 <span class="invalid-feedback" role="alert">

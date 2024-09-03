@@ -1,5 +1,5 @@
 @extends('backend.layouts.app_template')
-@section('title', 'Ville')
+@section('title', 'Commune')
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         @include('backend.layouts.alert_notification')
@@ -8,7 +8,7 @@
         <div class="card">
             <div class="row">
                 <div class="col-md-2">
-                    <h5 class="card-header">Liste Ville ({{ $results->total() }})</h5>
+                    <h5 class="card-header">Liste Commune ({{ $results->total() }})</h5>
                 </div>
                 <div class="col-md-4"></div>
                 <div class="col-md-6 p-3 p-md-8">
@@ -16,7 +16,7 @@
                         <div class="col-md-8"></div>
                         <div class="col-md-4">
                             <a type="button" class="btn btn-primary"
-                               href="{{ route('ville.create') }}"><i class="bx bx-upload me-1"></i>Enregistrement</a>
+                               href="{{ route('commune.create') }}"><i class="bx bx-upload me-1"></i>Enregistrement</a>
                         </div>
 
                     </div>
@@ -46,6 +46,7 @@
                         <tr>
                             <th>Libelle</th>
                             <th>Description</th>
+                            <th>Ville</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
@@ -57,6 +58,7 @@
                                     {{ $item->libelle }}
                                 </td>
                                 <td>{{ mb_strimwidth($item->description, 0, 25).'...' }}</td>
+                                <td>{{\App\Models\Ville::find($item->ville_id)->libelle}}</td>
                                 <td>
                                     @if ($item->status == 1)
                                         <span class="badge bg-label-primary me-1">Oui</span>
@@ -75,9 +77,9 @@
                                                 </button>
                                                 <div class="dropdown-menu">
                                                     <a class="dropdown-item"
-                                                       href="{{ route('ville.edit', ['ville' => $item]) }}"><i
+                                                       href="{{ route('commune.edit', ['commune' => $item]) }}"><i
                                                             class="bx bx-edit-alt me-1"></i> Edit</a>
-                                                    <a class="dropdown-item btn_delete_modal" id="{{ $item->id }}" data-url="{{ route('ville.destroy', ['ville' => $item]) }}"
+                                                    <a class="dropdown-item btn_delete_modal" id="{{ $item->id }}" data-url="{{ route('commune.destroy', ['commune' => $item]) }}"
                                                        data-bs-toggle="modal" data-bs-target="#basicModal"
                                                        href="javascript:void(0);"><i class="bx bx-trash me-1"></i>
                                                         Delete</a>
@@ -145,7 +147,7 @@
                     $('#csv_file_data').html('<div class="alert alert-warning alert-dismissible py-2" role="alert">En Cours</div>');
                     e.preventDefault();
                     $.ajax({
-                        url: "ville/"+$('#id').val(),
+                        url: "commune/"+$('#id').val(),
                         type: "POST",
                         contentType: false,
                         cache: false,
