@@ -13,9 +13,14 @@ return new class extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->string('libelle');
+            $table->string('name');
             $table->text('description');
             $table->string('logo')->nullable();
+            $table->string('telephone')->nullable();
+            $table->string('email')->nullable();
+            $table->string('adresse')->nullable();
+            $table->string('website')->nullable();
+            $table->enum('status', ['1','0'])->default(0);
             $table->timestamps();
         });
     }

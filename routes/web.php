@@ -37,6 +37,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth']], function 
 
     //Vehicule Type
     Route::resource('vehicule_type', App\Http\Controllers\Web\Admin\VehiculeTypeController::class);
+
+    //Setting App
+    Route::resource('setting-app', App\Http\Controllers\Web\Admin\SettingController::class);
 })->middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

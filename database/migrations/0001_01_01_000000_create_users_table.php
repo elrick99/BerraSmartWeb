@@ -14,17 +14,21 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('username', 25)->unique()->nullable();
             $table->string('email')->unique();
-            $table->string('password')->nullable();
             $table->string('mobile', 14);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->boolean('email_confirmed')->default(false);
+            $table->boolean('mobile_confirmed')->default(false);
+            $table->string('fcm_token')->nullable();
             $table->string('indicator_tel')->nullable();
             $table->float('rating')->default(0);
             $table->unsignedInteger('country')->nullable();
+            $table->float('rating_total')->default(0);
             $table->enum('role', ['admin', 'user', 'driver'])->default('user');
             $table->enum('login_by', ['android','ios'])->nullable();
+            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();

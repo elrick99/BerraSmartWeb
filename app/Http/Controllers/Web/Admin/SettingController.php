@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Setting;
 use App\Http\Requests\StoreSettingRequest;
 use App\Http\Requests\UpdateSettingRequest;
+use Illuminate\Support\Facades\Session;
 
 class SettingController extends Controller
 {
@@ -22,7 +23,7 @@ class SettingController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.setting.create');
     }
 
     /**
@@ -30,7 +31,17 @@ class SettingController extends Controller
      */
     public function store(StoreSettingRequest $request)
     {
-        //
+        $data = $request->all();
+        $data['name']= strtoupper($data['name']);
+        $status = Setting::create($data);
+        if($status){
+            Session::flash('message', 'Commune creer avec succes');
+            Session::flash('alert-class', 'alert-success');
+            return redirect()->back()->with('success', 'Setting created successfully');
+        }else{
+            return redirect()->back()->with('error', 'Something went wrong!');
+        }
+
     }
 
     /**
@@ -46,7 +57,7 @@ class SettingController extends Controller
      */
     public function edit(Setting $setting)
     {
-        //
+        return view('backend.setting.edit', compact('setting'));
     }
 
     /**

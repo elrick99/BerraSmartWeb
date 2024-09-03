@@ -11,7 +11,7 @@ class StoreSettingRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,15 @@ class StoreSettingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name'=>['required', 'string', 'max:255'],
+            'description' => ['required', 'string', 'max:255'],
+            'telephone' => ['required', 'string', 'max:50'],
+            'logo' => ['nullable', 'string', 'max:255'],
+            'email' => ['nullable', 'string', 'email', 'max:255'],
+            'adresse' => ['nullable', 'string', 'max:255'],
+            'website' => ['nullable', 'string', 'max:255'],
+            'status' => ['required', 'in:0,1'],
+
         ];
     }
 }
