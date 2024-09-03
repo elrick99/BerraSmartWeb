@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('libelle');
             $table->text('description');
-            $table->boolean('active')->default(1);
+            $table->enum('status',['0','1'])->default(1);
             $table->timestamps();
         });
     }

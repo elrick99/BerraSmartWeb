@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('description');
             $table->unsignedInteger('vehicule_marque_id');
             $table->foreign('vehicule_marque_id')->references('id')->on('vehicule_marques');
-            $table->boolean('active')->default(1);
+            $table->enum('status',['0','1'])->default(1);
             $table->timestamps();
         });
     }

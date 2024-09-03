@@ -11,7 +11,7 @@ class StoreVehiculeTypeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class StoreVehiculeTypeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'libelle' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string', 'max:255'],
+            'vehicule_marque_id' => ['required', 'exists:vehicule_marques,id'],
+            'status' => ['required', 'in:1,0'],
         ];
     }
 }

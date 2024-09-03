@@ -1,18 +1,18 @@
 @extends('backend.layouts.app_template')
-@section('title', 'Create Commune')
+@section('title', 'Create Vehicule Marque')
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Commune /</span> Enregistrement</h4>
+            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Vehicule Marque /</span> Enregistrement</h4>
             <div class="col-md-2"></div>
 
             <div class="col-md-8">
 
-                <form action="{{ route('commune.store') }}" method="post" >
+                <form action="{{ route('vehicule_marque.store') }}" method="post" >
                     @csrf
                     <div class="card mb-4">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <h5 class="mb-0">Commune</h5>
+                            <h5 class="mb-0">Vehicule Marque</h5>
                             {{--                            <small class="text-muted float-end">Enregistrement</small>--}}
                         </div>
                         <div class="card-body">
@@ -31,19 +31,6 @@
                                 <input type="text" class="form-control @error('description') is-invalid @enderror"
                                        id="description" name="description" placeholder="Description" />
                                 @error('description')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="mb-3">
-                                <label for="ville_id" class="form-label">Ville</label>
-                                <select id="ville_id" class="form-select @error('ville_id') is-invalid @enderror" name="ville_id">
-                                    @foreach($villes as $ville)
-                                        <option value="{{$ville->id}}">{{$ville->libelle}}</option>
-                                    @endforeach
-                                </select>
-                                @error('ville_id')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

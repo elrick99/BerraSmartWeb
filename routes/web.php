@@ -32,7 +32,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth']], function 
    //Type Document Driver
     Route::resource('type_document_driver', App\Http\Controllers\Web\Admin\TypeDocumentDriverController::class);
 
+   //Marque Vehicule
+    Route::resource('vehicule_marque', App\Http\Controllers\Web\Admin\VehiculeMarqueController::class);
 
+    //Vehicule Type
+    Route::resource('vehicule_type', App\Http\Controllers\Web\Admin\VehiculeTypeController::class);
 })->middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

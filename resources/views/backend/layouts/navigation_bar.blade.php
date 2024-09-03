@@ -76,12 +76,12 @@
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="" class="menu-link">
+                    <a href="{{route('vehicule_marque.index')}}" class="menu-link">
                         <div data-i18n="Liste">Marque Vehicule</div>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="" class="menu-link">
+                    <a href="{{route('vehicule_type.index')}}" class="menu-link">
                         <div data-i18n="Liste">Type Vehicule</div>
                     </a>
                 </li>
