@@ -156,11 +156,11 @@
                             var response = JSON.parse(data);
 
                             if (response) {
-                                if (response['statutCode'] === 200) {
+                                if (response['statusCode'] === 200) {
                                     $('#csv_file_data').html('<div class="alert alert-success alert-dismissible py-2" role="alert">' + response['message'] + '</div>');
                                     $('#csv_file_data').show(1000);
                                     setTimeout(relod, 2000)
-                                } else if (response['statutCode'] === 201) {
+                                } else if (response['statusCode'] === 201) {
                                     $('#csv_file_data').html('<div class="alert alert-danger alert-dismissible py-2" role="alert"">' + response['message'] + '</div>');
                                     $('#csv_file_data').show(1000);
                                     setTimeout(relod, 2000)

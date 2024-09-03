@@ -11,7 +11,7 @@ class UpdateTypeDocumentDriverRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class UpdateTypeDocumentDriverRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'libelle' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string', 'max:255'],
+//            'has_expiry_date' => ['required', 'in:on,off'],
+            'status' => ['required', 'in:1,0'],
         ];
     }
 }

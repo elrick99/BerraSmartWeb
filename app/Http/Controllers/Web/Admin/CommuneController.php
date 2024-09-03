@@ -90,13 +90,13 @@ class CommuneController extends Controller
         $commune= Commune::find($id);
         $status = $commune->delete();
         if($status){
-            return response()->json([
+            echo json_encode([
                 'statusCode' => 200,
                 'message' => 'Commune supprimer avec succes'
             ]);
         }else{
-            return response()->json([
-                'statusCode' => 500,
+            echo json_encode([
+                'statusCode' => 201,
                 'message' => 'Commune non supprimer'
             ]);
         }

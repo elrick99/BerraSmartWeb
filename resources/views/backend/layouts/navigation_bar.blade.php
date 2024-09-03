@@ -71,7 +71,7 @@
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="" class="menu-link">
+                    <a href="{{route('type_document_driver.index')}}" class="menu-link">
                         <div data-i18n="Liste">Type Document Driver</div>
                     </a>
                 </li>

@@ -84,14 +84,21 @@ class VilleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id): \Illuminate\Http\JsonResponse
+    public function destroy($id)
     {
         $ville = Ville::find($id);
-        $ville->delete();
-        return response()->json([
+        $status = $ville->delete();
+        if ($status){
+            echo json_encode([
                 'statusCode' => 200,
                 'message' => 'Ville supprimer avec succes'
-            ]);
+                ]);
+        }else{
+            echo json_encode([
+                'statusCode' => 201,
+                'message' => 'Ville non supprimer'
+                ]);
+        }
 
     }
 }

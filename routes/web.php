@@ -29,6 +29,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth']], function 
    //Commune
     Route::resource('commune', App\Http\Controllers\Web\Admin\CommuneController::class);
 
+   //Type Document Driver
+    Route::resource('type_document_driver', App\Http\Controllers\Web\Admin\TypeDocumentDriverController::class);
+
 
 })->middleware([
     'auth:sanctum',

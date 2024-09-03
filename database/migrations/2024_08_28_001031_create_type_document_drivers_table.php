@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('libelle');
             $table->text('description');
             $table->boolean('has_expiry_date')->default(false);
-            $table->boolean('active')->default(1);
+            $table->enum('status', ['1', '0'])->default(1);
             $table->timestamps();
         });
     }
