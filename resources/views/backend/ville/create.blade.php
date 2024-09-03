@@ -40,8 +40,8 @@
                                 <label for="status" class="form-label">Status</label>
                                 <select id="status" class="form-select @error('status') is-invalid @enderror"
                                         name="status">
-                                    <option value="active">Active</option>
-                                    <option value="inactive">Inactive</option>
+                                    <option value="1">Active</option>
+                                    <option value="0">Inactive</option>
                                 </select>
                                 @error('status')
                                 <span class="invalid-feedback" role="alert">
@@ -49,7 +49,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <button type="submit" class="btn btn-primary">Send</button>
+                            <button type="submit" class="btn btn-primary">Create</button>
                         </div>
                     </div>
                 </form>

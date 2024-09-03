@@ -24,6 +24,7 @@ class StoreVilleRequest extends FormRequest
         return [
             'libelle' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string'],
+            'status' => ['required','in:1,0'],
         ];
     }
 }

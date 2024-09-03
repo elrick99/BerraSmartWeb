@@ -33,6 +33,8 @@ class VilleController extends Controller
     public function store(StoreVilleRequest $request)
     {
        $data = $request->all();
+        $data['libelle'] = strtoupper($data['libelle']);
+//       dd($data);
        $status = Ville::create($data);
        if($status){
            Session::flash('message', 'Ville creer avec succes');
@@ -65,10 +67,13 @@ class VilleController extends Controller
      */
     public function update(UpdateVilleRequest $request, Ville $ville)
     {
-        $data = $request->all();
-        $status = $ville->update($data);
+        $ville->libelle = strtoupper($request->libelle);
+        $ville->description = $request->description;
+        $ville->status = $request->status;
+        $status = $ville->save();
+
         if($status){
-            Session::flash('message', 'Ville modifier avec succes');
+            Session::flash('message', 'Ville modifier avec succes ');
             Session::flash('alert-class', 'alert-success');
             return redirect()->route('ville.index')->with('success', 'Ville modifier avec succes');
         }else{
@@ -82,6 +87,7 @@ class VilleController extends Controller
     public function destroy($id): \Illuminate\Http\JsonResponse
     {
         $ville = Ville::find($id);
+        dd($ville);
         $ville->delete();
         return response()->json([
                 'statusCode' => 200,

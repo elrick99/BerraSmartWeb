@@ -58,10 +58,10 @@
                                 </td>
                                 <td>{{ mb_strimwidth($item->description, 0, 25).'...' }}</td>
                                 <td>
-                                    @if ($item->active == 'oui')
+                                    @if ($item->status == 1)
                                         <span class="badge bg-label-primary me-1">Oui</span>
                                     @else
-                                        <span class="badge bg-label-secondary me-1">Non</span>
+                                        <span class="badge bg-label-warning me-1">Non</span>
                                     @endif
 
                                 </td>
@@ -77,7 +77,12 @@
                                                     <a class="dropdown-item"
                                                        href="{{ route('ville.edit', ['ville' => $item]) }}"><i
                                                             class="bx bx-edit-alt me-1"></i> Edit</a>
-                                                    <a class="dropdown-item btn_delete_modal" id="{{ $item->id }}"
+                                                    <form method="POST" action="{{route('ville.destroy',[$item->id])}}">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <button class="btn btn-danger btn-sm dltBtn" data-id={{$item->id}} style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i></button>
+                                                    </form>
+                                                    <a class="dropdown-item btn_delete_modal" id="{{ $item->id }}" data-url="{{ route('ville.destroy', ['ville' => $item]) }}"
                                                        data-bs-toggle="modal" data-bs-target="#basicModal"
                                                        href="javascript:void(0);"><i class="bx bx-trash me-1"></i>
                                                         Delete</a>
@@ -179,6 +184,40 @@
         </script>
 
 @endsection
+
+@push('scripts')
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
+            <script>
+                $(document).ready(function(){
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    $('.dltBtn').click(function(e){
+                        var form=$(this).closest('form');
+                        var dataID=$(this).data('id');
+                        // alert(dataID);
+                        e.preventDefault();
+                        swal({
+                            title: "Are you sure?",
+                            text: "Once deleted, you will not be able to recover this data!",
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                        })
+                            .then((willDelete) => {
+                                if (willDelete) {
+                                    form.submit();
+                                } else {
+                                    swal("Your data is safe!");
+                                }
+                            });
+                    })
+                })
+            </script>
+@endpush
 
 
 
