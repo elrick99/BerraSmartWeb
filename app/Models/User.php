@@ -28,6 +28,18 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'username',
+        'country',
+        'mobile',
+        'email_verified_at',
+        'indicator_tel',
+        'status',
+        'login_by',
+        'mobile_confirmed',
+        'email_confirmed',
+        'fcm_token',
+        'rating',
+        'rating_total',
         'profile_photo_path',
     ];
 

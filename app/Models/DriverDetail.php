@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class DriverDetail extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'driver_id',
+        'latitude',
+        'longitude',
+        'rating',
+        'online',
+    ];
 }

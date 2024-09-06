@@ -28,7 +28,7 @@ return new class extends Migration
             $table->foreign('vehicule_marque_id')->references('id')->on('vehicule_marques');
             $table->foreign('vehicule_type_id')->references('id')->on('vehicule_types');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->enum('gender', ['male','fe-male','others']);
+            $table->enum('gender', ['Homme','Femme'])->default('Homme');
             $table->timestamps();
         });
     }
