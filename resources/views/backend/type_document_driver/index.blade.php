@@ -1,5 +1,5 @@
 @extends('backend.layouts.app_template')
-@section('title', 'Commune')
+@section('title', 'Type Document Driver')
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         @include('backend.layouts.alert_notification')

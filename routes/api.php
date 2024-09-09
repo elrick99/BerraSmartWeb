@@ -8,21 +8,25 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::post('driver/register', [\App\Http\Controllers\Api\AuthControllerDriver::class, 'register']);
-Route::post('diver/login', [\App\Http\Controllers\Api\AuthControllerDriver::class, 'login']);
+Route::post('driver/login', [\App\Http\Controllers\Api\AuthControllerDriver::class, 'login']);
+Route::post('driver/check', [\App\Http\Controllers\Api\AuthControllerDriver::class, 'checkDriver']);
+
+//Ville
+Route::apiResource('driver/ville', \App\Http\Controllers\Api\VilleControllerApi::class);
+//Commune
+Route::apiResource('driver/commune', \App\Http\Controllers\Api\CommuneControllerApi::class);
+
+//Vehicule Marque
+Route::apiResource('driver/vehicule-marque', \App\Http\Controllers\Api\VehiculeMarqueControllerApi::class);
+
+//Vehicule Type
+Route::apiResource('driver/vehicule-type', \App\Http\Controllers\Api\VehiculeTypeControllerApi::class);
+
+//Type Document Driver
+Route::apiResource('driver/type-document', \App\Http\Controllers\Api\TypeDocumentDriverControllerApi::class);
 
 
 Route::middleware('auth:sanctum')->prefix('driver')->group(function () {
-    //Ville
-    Route::apiResource('ville', \App\Http\Controllers\Api\VilleControllerApi::class);
-
-    //Commune
-    Route::apiResource('commune', \App\Http\Controllers\Api\CommuneControllerApi::class);
-
-    //Vehicule Marque
-    Route::apiResource('vehicule-marque', \App\Http\Controllers\Api\VehiculeMarqueControllerApi::class);
-
-    //Vehicule Type
-    Route::apiResource('vehicule-type', \App\Http\Controllers\Api\VehiculeTypeControllerApi::class);
 
     //Driver
     Route::apiResource('driver', \App\Http\Controllers\Api\DriverControllerApi::class);

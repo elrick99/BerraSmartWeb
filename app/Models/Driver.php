@@ -24,4 +24,12 @@ class Driver extends Model
         'available',
         'gender',
     ];
+
+    /**
+     * User With Driver
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

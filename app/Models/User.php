@@ -76,4 +76,13 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+
+    /**
+     * Driver With User
+     */
+    public function driver()
+    {
+        return $this->belongsTo(Driver::class, 'user_id', 'id');
+    }
 }

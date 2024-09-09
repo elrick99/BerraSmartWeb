@@ -14,6 +14,7 @@ class AuthControllerDriver extends Controller
 {
     public function register(Request $request)
     {
+
         $rules = [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -24,6 +25,7 @@ class AuthControllerDriver extends Controller
             'vehicule_type_id' => 'required|integer|exists:vehicule_types,id',
             'car_color' => 'required|string|max:255',
             'car_number' => 'required|string|max:255',
+            'car_year' => 'required|integer',
             'gender' => 'required|in:Homme,Femme',
         ];
         $validator = Validator::make($request->all(), $rules);
@@ -34,6 +36,12 @@ class AuthControllerDriver extends Controller
                 null
             );
         }
+
+//        return HelpersController::responseApi(
+//            200,
+//            "success",
+//            $request->all()
+//        );
 
         if ($request->password != $request->confirm_password) {
             return HelpersController::responseApi(
@@ -70,6 +78,7 @@ class AuthControllerDriver extends Controller
                 [
                     'access_token' => $token,
                     'token_type' => 'Bearer',
+                    Driver::with('user')->where('user_id', $user->id)->first()
                 ]
             );
 //            return response()->json([
@@ -81,22 +90,65 @@ class AuthControllerDriver extends Controller
 
     }
 
+    public function checkDriver(Request $request){
+        $rules = [
+            'telephone' => 'required|string|max:14',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return HelpersController::responseApi(
+                400,
+                "fields is required",
+                null
+            );
+        }
+
+        $user = User::where('mobile', $request->telephone)->first();
+        if (!$user) {
+            return HelpersController::responseApi(
+                200,
+                "Unauthorized",
+                null
+            );
+        }
+        return HelpersController::responseApi(
+            200,
+            "success",
+            Driver::with('user')->where('user_id', $user->id)->first()
+        );
+    }
+
     public function login(Request $request)
     {
-        if (!auth()->attempt($request->only('email', 'password'))) {
+        $rules = [
+            'telephone' => 'required|string|max:14',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return HelpersController::responseApi(
+                400,
+                "fields is required",
+                null
+            );
+        }
+
+        $user = User::where('mobile', $request->telephone)->first();
+//        dd($user);
+        if (!$user) {
             return HelpersController::responseApi(
                 401,
                 "Unauthorized",
                 null
             );
         }
-        $token = auth()->user()->createToken('auth_token')->plainTextToken;
+        $token = $user->createToken('auth_token')->plainTextToken;
         return HelpersController::responseApi(
             200,
             "success",
             [
                 'access_token' => $token,
                 'token_type' => 'Bearer',
+                'driver' => Driver::with('user')->where('user_id', $user->id)->first()
             ]
         );
     }

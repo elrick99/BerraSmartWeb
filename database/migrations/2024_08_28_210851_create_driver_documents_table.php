@@ -20,7 +20,8 @@ return new class extends Migration
             $table->string('image');
             $table->string('identify_number')->nullable();
             $table->timestamp('expiry_date')->nullable();
-            $table->boolean('active')->default(1);
+            $table->enum('status', ['WAITING_FOR_APPROVAL', 'EXPIRED_AND_DECLINED', 'NOT_UPLOADED','APPROVED', 'REJECTED'])->default('WAITING_FOR_APPROVAL');
+//            $table->enum('approve', ['1', '0'])->default(0);
             $table->timestamps();
         });
     }

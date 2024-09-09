@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\HelpersController;
 use App\Models\TypeDocumentDriver;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,12 @@ class TypeDocumentDriverControllerApi extends Controller
      */
     public function index()
     {
-        //
+        $all = TypeDocumentDriver::all();
+        return HelpersController::responseApi(
+            200,
+            "success",
+            $all
+        );
     }
 
     /**

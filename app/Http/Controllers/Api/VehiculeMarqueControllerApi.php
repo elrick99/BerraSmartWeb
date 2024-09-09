@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\HelpersController;
 use App\Models\VehiculeMarque;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,12 @@ class VehiculeMarqueControllerApi extends Controller
      */
     public function index()
     {
-        //
+        $all = VehiculeMarque::with('vehicule_type')->get();
+        return HelpersController::responseApi(
+            200,
+            "success",
+            $all
+        );
     }
 
     /**
