@@ -32,4 +32,20 @@ class Driver extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    /**
+     * Vehicule With User
+     */
+    public function vehicule_marque()
+    {
+        return $this->belongsTo(VehiculeMarque::class, 'vehicule_marque_id');
+    }
+
+    /**
+     * Driver Document With Driver user id
+     */
+    public function driver_document()
+    {
+        return $this->hasMany(DriverDocument::class, 'driver_id','user_id');
+    }
 }

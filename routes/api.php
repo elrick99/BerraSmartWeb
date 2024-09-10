@@ -35,3 +35,8 @@ Route::middleware('auth:sanctum')->prefix('driver')->group(function () {
     Route::apiResource('driver-document', \App\Http\Controllers\Api\DriverDocumentControllerApi::class);
     Route::post('/logout', [\App\Http\Controllers\Api\AuthControllerDriver::class, 'logout']);
 });
+
+
+
+
+

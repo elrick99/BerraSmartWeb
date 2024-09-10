@@ -18,4 +18,12 @@ class DriverDocument extends Model
         'expiry_date',
         'status',
     ];
+
+    /**
+     * Driver With Driver Document
+     */
+    public function driver()
+    {
+        return $this->belongsTo(Driver::class, 'driver_id');
+    }
 }

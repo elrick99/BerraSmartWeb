@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web\Admin;
 
-use App\Models\Driver;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreDriverRequest;
 use App\Http\Requests\UpdateDriverRequest;
+use App\Models\Driver;
 
 class DriverController extends Controller
 {
@@ -13,7 +14,8 @@ class DriverController extends Controller
      */
     public function index()
     {
-        //
+        $results = Driver::paginate(10);
+        return view('backend.driver.index', compact('results'));
     }
 
     /**
@@ -45,7 +47,7 @@ class DriverController extends Controller
      */
     public function edit(Driver $driver)
     {
-        //
+        return view('backend.driver.edit', compact('driver'));
     }
 
     /**

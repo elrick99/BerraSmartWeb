@@ -40,6 +40,14 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth']], function 
 
     //Setting App
     Route::resource('setting-app', App\Http\Controllers\Web\Admin\SettingController::class);
+
+    //Driver
+    Route::resource('driver', App\Http\Controllers\Web\Admin\DriverController::class);
+
+    //Driver Document
+    Route::get('driver-document/{driver}', [App\Http\Controllers\Web\Admin\DriverDocumentController::class, 'index'])->name('driver-document.index');
+    Route::patch('driver-document/{driverDocument}/approve', [App\Http\Controllers\Web\Admin\DriverDocumentController::class, 'approve'])->name('driver-document.approve');
+//    Route::resource('driver-document', App\Http\Controllers\Web\Admin\DriverDocumentController::class);
 })->middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
