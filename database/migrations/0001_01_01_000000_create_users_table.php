@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('password');
             $table->boolean('email_confirmed')->default(false);
             $table->boolean('mobile_confirmed')->default(false);
+            $table->enum('gender', ['Homme', 'Femme'])->default('Homme');
             $table->string('fcm_token')->nullable();
             $table->string('indicator_tel')->nullable();
             $table->float('rating')->default(0);

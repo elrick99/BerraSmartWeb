@@ -54,6 +54,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth']], function 
     'verified',
 ]);
 
+Route::get('fcm-send',[\App\Http\Controllers\FcmController::class,'sendPushNotification']);
 
 
 /**

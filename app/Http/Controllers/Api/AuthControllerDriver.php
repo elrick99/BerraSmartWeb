@@ -12,7 +12,14 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthControllerDriver extends Controller
 {
-    public function register(Request $request)
+    /**
+     * Driver
+     */
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function registerDriver(Request $request)
     {
 
         $rules = [
@@ -90,6 +97,10 @@ class AuthControllerDriver extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function checkDriver(Request $request){
         $rules = [
             'telephone' => 'required|string|max:14',
@@ -118,7 +129,11 @@ class AuthControllerDriver extends Controller
         );
     }
 
-    public function login(Request $request)
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function loginDriver(Request $request)
     {
         $rules = [
             'telephone' => 'required|string|max:14',
@@ -153,6 +168,10 @@ class AuthControllerDriver extends Controller
         );
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function logout(Request $request)
     {
         auth()->user()->tokens()->delete();
@@ -160,6 +179,125 @@ class AuthControllerDriver extends Controller
             200,
             "success",
             null
+        );
+    }
+
+
+    /**
+     * User
+     */
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function registerUser(Request $request){
+    dd($request->all());
+        $rules = [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'mobile' => 'required|string|max:14|unique:users',
+            'password' => 'required|string|min:8',
+            'confirm_password' => 'required|string|min:8',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return HelpersController::responseApi(
+                200,
+                "fields is required",
+                null
+            );
+        }
+
+        if ($request->password != $request->confirm_password) {
+            return HelpersController::responseApi(
+                200,
+                "Passwords do not match",
+                null
+            );
+        }
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'mobile' => $request->mobile,
+            'role' => 'user',
+            'username' => HelpersController::username($request->name),
+            'indicator_tel'=> '+225',
+            'status' => 'active',
+            'password' => Hash::make($request->password),
+        ]);
+        $token = $user->createToken('auth_token')->plainTextToken;
+        return HelpersController::responseApi(
+            200,
+            "success",
+            [
+                'access_token' => $token,
+                'token_type' => 'Bearer',
+                'user' => $user
+            ]
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function checkUser(Request $request){
+        $rules = [
+            'telephone' => 'required|string|max:14',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return HelpersController::responseApi(
+                400,
+                "fields is required",
+                null
+            );
+        }
+
+        $user = User::where('mobile', $request->telephone)->first();
+        if (!$user) {
+            return HelpersController::responseApi(
+                200,
+                "Unauthorized",
+                null
+            );
+        }
+        return HelpersController::responseApi(
+            200,
+            "success",
+            $user
+        );
+    }
+
+
+
+    public function loginUser(Request $request)
+    {
+        $rules = [
+            'telephone' => 'required|string|max:14',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return HelpersController::responseApi(
+                400,
+                "fields is required",
+                null
+            );
+        }
+
+        $user = User::where('mobile', $request->telephone)->first();
+        if (!$user) {
+            return HelpersController::responseApi(
+                200,
+                "Unauthorized",
+                null
+            );
+        }
+        return HelpersController::responseApi(
+            200,
+            "success",
+            $user
         );
     }
 }
