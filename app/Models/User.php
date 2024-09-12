@@ -37,10 +37,12 @@ class User extends Authenticatable
         'login_by',
         'mobile_confirmed',
         'email_confirmed',
+        'gender',
         'fcm_token',
         'rating',
         'rating_total',
         'profile_photo_path',
+        'profile_photo_url',
     ];
 
     /**
@@ -84,5 +86,13 @@ class User extends Authenticatable
     public function driver()
     {
         return $this->belongsTo(Driver::class, 'user_id', 'id');
+    }
+
+    /**
+     * Course with User Client
+     */
+    public function courses()
+    {
+        return $this->hasMany(Course::class, 'user_id', 'id')->where('role', 'client');
     }
 }

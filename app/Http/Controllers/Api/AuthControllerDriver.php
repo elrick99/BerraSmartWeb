@@ -66,6 +66,7 @@ class AuthControllerDriver extends Controller
                 'username' => HelpersController::username($request->name),
                 'indicator_tel'=> '+225',
                 'status' => 'active',
+                'gender' => $request->gender,
                 'password' => Hash::make($request->password),
             ]);
 
@@ -114,7 +115,7 @@ class AuthControllerDriver extends Controller
             );
         }
 
-        $user = User::where('mobile', $request->telephone)->first();
+        $user = User::where('mobile', $request->telephone)->where('role', 'driver')->first();
         if (!$user) {
             return HelpersController::responseApi(
                 200,
@@ -192,7 +193,25 @@ class AuthControllerDriver extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function registerUser(Request $request){
-    dd($request->all());
+//    return response()->json($request->file());
+//        $file = $request->file('files');
+//        $image_name = uniqid('user_profile') . time() . '.' . $file->getClientOriginalExtension();
+//
+//       $ok =  $file->storeAs('public/user/profile', $image_name);
+//        if($ok){
+//            return HelpersController::responseApi(
+//                200,
+//                "File Uploaded Success",
+//                null
+//            );
+//        }else{
+//            return HelpersController::responseApi(
+//                200,
+//                "File Uploaded Not Success",
+//                null
+//            );
+//        }
+//        return
         $rules = [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -216,16 +235,40 @@ class AuthControllerDriver extends Controller
                 null
             );
         }
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'mobile' => $request->mobile,
-            'role' => 'user',
-            'username' => HelpersController::username($request->name),
-            'indicator_tel'=> '+225',
-            'status' => 'active',
-            'password' => Hash::make($request->password),
-        ]);
+        $profile_photo_path = null;
+        if ($request->hasFile('files')) {
+            $file = $request->file('files');
+            $image_name = uniqid('user_profile') . time() . '.' . $file->getClientOriginalExtension();
+            $profile_photo_path = 'user/profile/' . $image_name;
+            $file->storeAs('public/user/profile', $image_name);
+
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'mobile' => $request->mobile,
+                'role' => 'user',
+                'username' => HelpersController::username($request->name),
+                'indicator_tel'=> '+225',
+                'status' => 'active',
+                'gender' => $request->gender,
+                'password' => Hash::make($request->password),
+                'profile_photo_path' => $profile_photo_path
+            ]);
+        }else{
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'mobile' => $request->mobile,
+                'role' => 'user',
+                'username' => HelpersController::username($request->name),
+                'indicator_tel'=> '+225',
+                'status' => 'active',
+                'gender' => $request->gender,
+                'password' => Hash::make($request->password),
+            ]);
+        }
+
+
         $token = $user->createToken('auth_token')->plainTextToken;
         return HelpersController::responseApi(
             200,
@@ -243,6 +286,7 @@ class AuthControllerDriver extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function checkUser(Request $request){
+//        return response()->json($request->all());
         $rules = [
             'telephone' => 'required|string|max:14',
         ];
@@ -255,7 +299,7 @@ class AuthControllerDriver extends Controller
             );
         }
 
-        $user = User::where('mobile', $request->telephone)->first();
+        $user = User::where('mobile', $request->telephone)->where('role', 'user')->first();
         if (!$user) {
             return HelpersController::responseApi(
                 200,
@@ -286,7 +330,7 @@ class AuthControllerDriver extends Controller
             );
         }
 
-        $user = User::where('mobile', $request->telephone)->first();
+        $user = User::where('mobile', $request->telephone)->where('role', 'user')->first();
         if (!$user) {
             return HelpersController::responseApi(
                 200,
@@ -294,10 +338,15 @@ class AuthControllerDriver extends Controller
                 null
             );
         }
+        $token = $user->createToken('auth_token')->plainTextToken;
         return HelpersController::responseApi(
             200,
             "success",
-            $user
+            [
+                'access_token' => $token,
+                'token_type' => 'Bearer',
+                'user' => $user
+            ]
         );
     }
 }

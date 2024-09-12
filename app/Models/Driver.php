@@ -48,4 +48,12 @@ class Driver extends Model
     {
         return $this->hasMany(DriverDocument::class, 'driver_id','user_id');
     }
+
+    /**
+     * Courses With Driver
+     */
+    public function courses()
+    {
+        return $this->hasMany(Course::class, 'driver_id');
+    }
 }

@@ -51,7 +51,8 @@ Route::prefix('user')->group(function () {
     Route::post('login', [\App\Http\Controllers\Api\AuthControllerDriver::class, 'loginUser']);
     Route::post('check', [\App\Http\Controllers\Api\AuthControllerDriver::class, 'checkUser']);
 
-
+    //Course
+    Route::apiResource('course', \App\Http\Controllers\Api\CourseControllerApi::class)->middleware('auth:sanctum');
 });
 
 
