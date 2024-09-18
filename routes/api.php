@@ -13,7 +13,7 @@ Route::get('/user', function (Request $request) {
 Route::prefix('driver')->group(function () {
 
     Route::post('register', [\App\Http\Controllers\Api\AuthControllerDriver::class, 'registerDriver']);
-    Route::post('login', [\App\Http\Controllers\Api\AuthControllerDriver::class, 'login']);
+    Route::post('login', [\App\Http\Controllers\Api\AuthControllerDriver::class, 'loginDriver']);
     Route::post('check', [\App\Http\Controllers\Api\AuthControllerDriver::class, 'checkDriver']);
 
     //Ville
@@ -37,6 +37,9 @@ Route::prefix('driver')->group(function () {
 
     //Driver Document
     Route::apiResource('driver-document', \App\Http\Controllers\Api\DriverDocumentControllerApi::class)->middleware('auth:sanctum');
+
+    //Course
+    Route::get('last-course-waiting', [\App\Http\Controllers\Api\CourseControllerApi::class, 'lastCourseWaiting'])->name('lastCourseWaiting')->middleware('auth:sanctum');
 
     Route::post('/logout', [\App\Http\Controllers\Api\AuthControllerDriver::class, 'logout']);
 });

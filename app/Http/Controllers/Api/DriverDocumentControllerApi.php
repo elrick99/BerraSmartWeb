@@ -32,7 +32,6 @@ class DriverDocumentControllerApi extends Controller
             $file = $request->file('files');
 
             foreach ($file as $index => $f) {
-//                print_r($data[explode('_', $index)[0]]);
                 $driverDocument = new DriverDocument();
                 $driverDocument->driver_id = $dataTable['user_id'];
                 $driverDocument->type_document_driver_id = explode('_', $index)[0];

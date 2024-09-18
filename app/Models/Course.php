@@ -33,4 +33,12 @@ class Course extends Model
     {
         return $this->hasMany(ColisImage::class, 'course_id');
     }
+
+    /**
+     * Course Livree
+     */
+    public static function courseLivree()
+    {
+        return self::where('etat', 'livree')->get();
+    }
 }

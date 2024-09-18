@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\HelpersController;
 use App\Models\ColisImage;
 use App\Models\Course;
+use App\Models\Driver;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -29,7 +30,11 @@ class CourseControllerApi extends Controller
      */
     public function store(Request $request)
     {
-
+//        return HelpersController::responseApi(
+//            200,
+//            "success",
+//            null
+//        );
         $rules = [
             'description' => 'required|string|max:255',
             'client_id' => 'required|integer|exists:users,id',
@@ -86,7 +91,7 @@ class CourseControllerApi extends Controller
      */
     public function show(Course $course)
     {
-        //
+
     }
 
     /**
@@ -103,5 +108,17 @@ class CourseControllerApi extends Controller
     public function destroy(Course $course)
     {
         //
+    }
+
+    /**
+     * Get Last Courses
+     */
+    public function lastCourseWaiting(){
+        $all = Course::with('client', 'driver', 'colis_images')->orderBy('created_at', 'desc')->first();
+        return HelpersController::responseApi(
+            200,
+            "success",
+            $all
+        );
     }
 }

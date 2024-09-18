@@ -79,7 +79,9 @@ class AuthControllerDriver extends Controller
                 'car_number' => $request->car_number,
                 'gender' => $request->gender,
             ]);
+
             $token = $user->createToken('auth_token')->plainTextToken;
+
             return HelpersController::responseApi(
                 200,
                 "success",
@@ -138,6 +140,7 @@ class AuthControllerDriver extends Controller
     {
         $rules = [
             'telephone' => 'required|string|max:14',
+            'fcm_Token' => 'required|string|max:255',
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -157,7 +160,10 @@ class AuthControllerDriver extends Controller
                 null
             );
         }
+        $user->tokens()->delete();
         $token = $user->createToken('auth_token')->plainTextToken;
+        $user->fcm_Token = $request->fcm_Token;
+        $user->save();
         return HelpersController::responseApi(
             200,
             "success",
@@ -320,17 +326,20 @@ class AuthControllerDriver extends Controller
     {
         $rules = [
             'telephone' => 'required|string|max:14',
+            'fcm_token' => 'required|string|max:255',
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return HelpersController::responseApi(
-                400,
+                200,
                 "fields is required",
                 null
             );
         }
 
         $user = User::where('mobile', $request->telephone)->where('role', 'user')->first();
+        $user->fcm_token = $request->fcm_token;
+        $user->save();
         if (!$user) {
             return HelpersController::responseApi(
                 200,
@@ -338,6 +347,9 @@ class AuthControllerDriver extends Controller
                 null
             );
         }
+
+        $user->tokens()->delete();
+
         $token = $user->createToken('auth_token')->plainTextToken;
         return HelpersController::responseApi(
             200,
