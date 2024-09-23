@@ -50,7 +50,7 @@ Route::prefix('driver')->group(function () {
  * User
  */
 Route::prefix('user')->group(function () {
-    //Auth
+    //Auth.
     Route::post('register', [\App\Http\Controllers\Api\AuthControllerDriver::class, 'registerUser']);
     Route::post('login', [\App\Http\Controllers\Api\AuthControllerDriver::class, 'loginUser']);
     Route::post('check', [\App\Http\Controllers\Api\AuthControllerDriver::class, 'checkUser']);
